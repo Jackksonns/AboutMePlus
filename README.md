@@ -35,7 +35,7 @@ AboutMePlus is an open-source web application that combines a beautiful personal
 ├── package.json                       # Project dependencies
 ├── package-lock.json
 ├── README.md                          # This file
-└── ProjectReport.md                   # Original course report
+└── ProjectReport.md                   # Detailed report of this project
 ```
 
 ## 🛠️ Tech Stack
