@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#page1 {
+    display: block;
+}
+
+#page2 {
+    display: none;
+}
+
+#page3 {
+    display: none;
+}
+
+#challengeModal{
+    border:2px solid #333; 
+    padding:18px 20px; 
+    background:#fff; 
+    box-shadow:0 0 10px #888; 
+    max-width:280px; 
+    min-width:180px; 
+    width:auto; 
+    margin:0 auto; 
+    position:fixed; 
+    left:50%; 
+    top:50%; 
+    transform:translate(-50%, -50%); 
+    z-index:99999; 
+    border-radius:8px; 
+    text-align:center;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.8;
+    font-size: 1.2rem; 
+    overflow-x: hidden;
+}
+
+header {
+    background-image: linear-gradient(-225deg, #D4FFEC 0%, #57F2CC 48%, #4596FB 100%);
+    color: #fff;
+    padding: 0.85rem 0; 
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 1rem;
+    text-align: center;
+}
+
+.school {
+    font-style: italic;
+    color: blue;
+    margin: 0.25rem 0; 
+}
+                      
+.myphoto {
+    display:flex;
+    max-width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    height: auto;
+    margin: 0;
+    margin-bottom: 0.75rem; 
+    width: auto;
+}
+
+#education p {
+    margin: 0 0 0.5rem 0; 
+}
+
+h2 {
+    text-align: center;
+}
+
+h3 {
+    margin: 0 2rem; 
+    flex: 1; 
+    min-width: 380px;
+}
+
+#overview {
+    text-indent: 2em;
+    max-width: 100%; 
+}
+
+.buttonContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    }
+
+.buttonContainer button {
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #30e3ca;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#button1 {
+    right: 20rem;
+}
+
+#button2 {
+    right: 12.3rem;
+}
+
+#button3 {
+    right: 2rem;
+}
+
+button:hover {
+    background-color: #11999e;
+}
+
+input,label{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 125%; 
+    display: flex;
+    justify-self: center;
+    align-items: center; 
+}
+
+#start,.player_button{
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem; 
+    font-size: 1.3rem; 
+    border-radius: 0.3rem; 
+    background-color: #30e3ca;
+    width: auto; 
+    border: none;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    margin: 1rem auto; 
+}
+
+#start:hover {
+    background-color: #11999e;
+}

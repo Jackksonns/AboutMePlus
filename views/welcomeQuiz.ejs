@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+    <link rel="stylesheet" href="/project.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>ZHOU HONGYI's Quiz Game</h1>
+    </header>
+    <br><br><br><br>
+    <div id="page1">
+    <h2>Welcome to quiz! Give your name:</h2>
+    <br><br>
+    <input type="text" id="playerName" placeholder="Enter your name~" style="height:3rem; width:auto;">
+    <br>
+    <button id="start" type="submit" onclick="addPlayer()">Submit</button>
+    </div>
+    <div id="page2">
+    <h2>Challenge a player!</h2>
+    <br><br>
+    <div id="onlinePlayers">
+    </div>
+    <br><br><br><br><br>
+    </div>
+
+    <div id="challengeModal" style="display:none;">
+        <span id="challengeText" style="display:block; text-align:center;"></span><br><br>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 1.2rem; width: 100%; box-sizing: border-box; padding: 0 10px;">
+            <button id="acceptBtn" class="player_button" type="button">Accept</button>
+            <button id="rejectBtn" class="player_button" type="button">Reject</button>
+        </div>
+    </div>
+
+    <!-- Show the questions -->
+    <section id="questions" style="display:none;">
+        <h2>Quiz Questions</h2>
+        <br>
+        <div id="questionContainer">
+            <div class="question">
+                <h3 style="text-align: center;">Question <span id="questionNumber"></span>: <span id="question"></span></h3>
+                <br>
+                <div style="text-align: center;">
+                <button class="player_button" id="optionA" style="display: inline-block;"></button>
+                <button class="player_button" id="optionB" style="display: inline-block;"></button>
+                <button class="player_button" id="optionC" style="display: inline-block;"></button>
+                <button class="player_button" id="optionD" style="display: inline-block;"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <div id="backToStartContainer" style="display:none;">
+        <button id="backToStartBtn" class="player_button" type="button" onclick="window.location.reload()">Back to start</button>
+    </div>
+    <div class='buttonContainer'>
+    <button id="button1" class="page_button" onclick="location.href='index.html'">Introduction</button>
+    <button id="button2" class="page_button" onclick="location.href='about.html'">About me</button>
+    <button id="button3" class="page_button" onclick="location.href='welcomeQuiz'">Quiz application</button>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        let currentChallengerId = null;
+        let currentGameId = null;
+        let currentOpponentId = null;
+        let hasAnsweredCurrentQuestion = false;
+        let scoreA = 0;  // Your score
+        let scoreB = 0;  // Opponent's score
+        
+        let questions = [
+    {
+      question: "What do elephants use to drink water?",
+      options: ["Mouth", "Trunk", "Tongue", "Ears"],
+      answer: "Trunk",
+    },
+    {
+      question: "10 - 4 × 2 = ?",
+      options: ["2", "12", "6", "8"],
+      answer: "2",
+    },
+    {
+      question: "Which planet is closest to the Sun?",
+      options: ["Earth", "Venus", "Mercury", "Mars"],
+      answer: "Mercury",
+    },
+    {
+      question: "What is the boiling point of water at standard atmospheric pressure (in °C)?",
+      options: ["0°C (Zero degrees)", "100°C (One hundred degrees)", "50°C (Fifty degrees)", "200°C (Two hundred degrees)"],
+      answer: "100°C (One hundred degrees)",
+    },
+    {
+      question: "On which side of the body is the human heart located?",
+      options: ["Right side", "Left side", "Middle", "Upper side"],
+      answer: "Left side",
+    },
+    {
+      question: "In the fairy tale 'Little Red Riding Hood',who is Little Red Riding Hood going to visit?",
+      options: ["Mother", "Father", "Grandmother", "Friend"],
+      answer: "Grandmother",
+      }
+
+  ];
+  let currentQuestionIndex = 0;
+                
+                function showQuestion(questionIndex, currentScore, opponentScore) {
+                    const q = questions[questionIndex];
+                    document.getElementById('question').textContent = q.question;
+                    document.getElementById('optionA').textContent = q.options[0];
+                    document.getElementById('optionB').textContent = q.options[1];
+                    document.getElementById('optionC').textContent = q.options[2];
+                    document.getElementById('optionD').textContent = q.options[3];
+                
+                    ['optionA', 'optionB', 'optionC', 'optionD'].forEach(id => {
+                        const button = document.getElementById(id);
+                        button.disabled = false;
+                        button.style.opacity = '1';
+                    });
+                
+                    hasAnsweredCurrentQuestion = false;
+                    
+                    
+                    const questionContainer = document.getElementById('questionContainer');
+                    const resultElements = questionContainer.querySelectorAll('h4');
+                    resultElements.forEach(element => {
+                        if (element.id !== 'currentScore') {
+                            element.remove();
+                        }
+                    });
+                    
+                    // Update score display
+                    const existingScore = document.getElementById('currentScore');
+                    if (existingScore) {
+                        existingScore.remove();
+                    }
+                    const scoreDisplay = document.createElement('h4');
+                    scoreDisplay.id = 'currentScore';
+                    scoreDisplay.style.textAlign = 'center';
+                    scoreDisplay.style.margin = '20px 0';
+                    scoreDisplay.textContent = `Your score: ${currentScore} | Opponent's score: ${opponentScore}`;
+                    document.getElementById('questionContainer').appendChild(scoreDisplay);
+                
+                    document.getElementById('optionA').onclick = () => checkAnswer(questionIndex, 0, currentScore, opponentScore);
+                    document.getElementById('optionB').onclick = () => checkAnswer(questionIndex, 1, currentScore, opponentScore);
+                    document.getElementById('optionC').onclick = () => checkAnswer(questionIndex, 2, currentScore, opponentScore);
+                    document.getElementById('optionD').onclick = () => checkAnswer(questionIndex, 3, currentScore, opponentScore);
+                }
+                
+                function checkAnswer(questionIndex, selectedOption, scoreA, scoreB) {
+                    if (hasAnsweredCurrentQuestion) return;
+                
+                    const q = questions[questionIndex];
+                    const resultDisplay = document.createElement('h4');
+                    resultDisplay.style.textAlign = 'center';
+                    resultDisplay.style.margin = '20px 0';
+                    
+                    if (q.options[selectedOption] === q.answer) {
+                        resultDisplay.textContent = 'Correct!';
+                        resultDisplay.style.color = 'green';
+                        scoreA += 2;
+                    } else {
+                        resultDisplay.textContent = 'Incorrect!';
+                        resultDisplay.style.color = 'red';
+                        scoreB += 1;
+                    }
+                    
+                    document.getElementById('questionContainer').appendChild(resultDisplay);
+                
+                    ['optionA', 'optionB', 'optionC', 'optionD'].forEach(id => {
+                        const button = document.getElementById(id);
+                        button.disabled = true;
+                        button.style.opacity = '0.5';
+                    });
+                
+                    hasAnsweredCurrentQuestion = true;
+
+                    const existingScore = document.getElementById('currentScore');
+                    if (existingScore) {
+                        existingScore.remove();
+                    }
+                    const scoreDisplay = document.createElement('h4');
+                    scoreDisplay.id = 'currentScore';
+                    scoreDisplay.style.textAlign = 'center';
+                    scoreDisplay.style.margin = '20px 0';
+                    scoreDisplay.textContent = `Your score: ${scoreA} | Opponent's score: ${scoreB}`;
+                    document.getElementById('questionContainer').appendChild(scoreDisplay);
+                
+                    socket.emit('answer selected', {
+                        gameId: currentGameId,
+                        questionIndex,
+                        selectedOption,
+                        scoreA,
+                        scoreB
+                    });
+                }
+
+        console.log('Page loaded, current socket.id', socket.id);
+
+        function addPlayer() {
+            const playerName = document.getElementById('playerName').value;
+            if (playerName.trim()) {
+                console.log('addPlayer, current socket.id', socket.id);
+                socket.emit('new player', playerName);
+                document.getElementById('page1').style.display = 'none';
+                document.getElementById('page2').style.display = 'block';
+            }
+        }
+
+        socket.on('update players', (onlinePlayers) => {
+            const playerList = document.getElementById('onlinePlayers');
+            playerList.innerHTML = '';
+            onlinePlayers.forEach(player => {
+                if (player.name !== document.getElementById('playerName').value) {
+                    const button = document.createElement('button');
+                    button.textContent = player.name;
+                    button.classList.add('player_button');
+                    button.onclick = function() {
+                        socket.emit('challenge request', player.id);
+                    };
+                    playerList.appendChild(button);
+                }
+            });
+        });
+
+        socket.on('challenge received', (challenger) => {
+            currentChallengerId = challenger.id;
+            document.getElementById('challengeText').textContent = challenger.name + ' challenge you!';
+            document.getElementById('challengeModal').style.display = 'block';
+        });
+
+        document.getElementById('acceptBtn').onclick = function() {
+            if(currentChallengerId) {
+                socket.emit('challenge response', { from: currentChallengerId, accepted: true });
+                document.getElementById('challengeModal').style.display = 'none';
+                currentChallengerId = null;
+
+                document.getElementById('page2').style.display = 'none';
+            }
+        };
+
+        document.getElementById('rejectBtn').onclick = function() {
+            if(currentChallengerId) {
+                socket.emit('challenge response', { from: currentChallengerId, accepted: false });
+                document.getElementById('challengeModal').style.display = 'none';
+                currentChallengerId = null;
+            }
+        };
+        
+        socket.on('challenge result', (result) => {
+            console.log('Get challenge result', result, 'Current socket.id', socket.id);
+            if (result.accepted) {
+                alert('He/She accepted your challenge!');
+                console.log('questions', questions);
+            } else {
+                alert('He/She rejected your challenge.');
+            }
+        });
+
+        socket.on('game start', (data) => {
+            currentGameId = data.gameId;
+            currentOpponentId = data.opponentId;
+            
+            document.getElementById('page2').style.display = 'none';
+            scoreA = 0;
+            scoreB = 0;
+            
+            currentQuestionIndex = 0;
+            document.getElementById('questions').style.display = 'block';
+            showQuestion(currentQuestionIndex, scoreA, scoreB);
+            document.getElementById('questionNumber').textContent = currentQuestionIndex + 1;
+        });
+
+        socket.on('opponent answered', (data) => {
+            ['optionA', 'optionB', 'optionC', 'optionD'].forEach(id => {
+                const button = document.getElementById(id);
+                button.disabled = true;
+                button.style.opacity = '0.5';
+            });
+            
+            hasAnsweredCurrentQuestion = true;
+            
+            const existingScore = document.getElementById('currentScore');
+            if (existingScore) {
+                existingScore.remove();
+            }
+            const scoreDisplay = document.createElement('h4');
+            scoreDisplay.id = 'currentScore';
+            scoreDisplay.style.textAlign = 'center';
+            scoreDisplay.style.margin = '20px 0';
+            scoreDisplay.textContent = `Your score: ${data.opponentScore} | Opponent's score: ${data.currentScore}`;
+            document.getElementById('questionContainer').appendChild(scoreDisplay);
+        });
+
+        socket.on('next question', (data) => {
+            setTimeout(() => {
+                currentQuestionIndex = data.questionIndex;
+                document.getElementById('questionNumber').textContent = currentQuestionIndex + 1;
+                showQuestion(currentQuestionIndex, data.currentPlayerScore, data.opponentScore);
+            }, 5000);
+        });
+
+        socket.on('game end', (data) => {
+            const { currentPlayerScore, opponentScore, isWinner, isDraw, opponentName } = data;
+            console.log('Received game end event:', {
+                currentPlayerScore,
+                opponentScore,
+                isWinner,
+                isDraw,
+                opponentName
+            });
+            
+            setTimeout(() => {
+                const resultsContainer = document.createElement('div');
+                resultsContainer.id = 'resultsContainer';
+                resultsContainer.style.textAlign = 'center';
+                resultsContainer.style.margin = '20px 0';
+                
+                const finalScore = document.createElement('h2');
+                finalScore.style.margin = '20px 0';
+                finalScore.textContent = `Your score is: ${currentPlayerScore}, and ${opponentName}'s score is: ${opponentScore}`;
+                resultsContainer.appendChild(finalScore);
+                
+                const resultMessage = document.createElement('h2');
+                resultMessage.style.margin = '20px 0';
+                if (isDraw) {
+                    resultMessage.style.color = 'blue';
+                    resultMessage.textContent = 'It\'s a draw! Great game!';
+                } else if (isWinner) {
+                    resultMessage.style.color = 'green';
+                    resultMessage.textContent = 'You won, congratulations!';
+                } else {
+                    resultMessage.style.color = 'red';
+                    resultMessage.textContent = 'You lose, keep on fighting!';
+                }
+                resultsContainer.appendChild(resultMessage);
+                
+                document.getElementById('questions').style.display = 'none';
+                document.body.appendChild(resultsContainer);
+                
+                const button = document.createElement('button');
+                button.id = 'backToStartBtn';
+                button.classList.add('player_button');
+                button.textContent = 'Back to start';
+                button.style.display = 'block';
+                button.style.margin = '20px auto';
+                button.onclick = function() {
+                    window.location.reload();
+                };
+                resultsContainer.appendChild(button);
+            }, 5000);
+        });
+
+        socket.onAny((event, ...args) => {
+            console.log('Get event:', event, args, 'Current socket.id', socket.id);
+        });
+    </script>
+</body>
+</html>
