@@ -89,7 +89,7 @@ Contributions are welcome! Feel free to fork the repo, submit issues, or open pu
 5. Open a Pull Request
 
 ## 📜 License
-This project is licensed under the MIT License.
+This project is licensed under the Apache License 2.0.
 
 ## 🙏 Acknowledgements
 - Inspired by modern web design and real-time multiplayer quiz games.
