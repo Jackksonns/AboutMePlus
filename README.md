@@ -23,7 +23,6 @@ AboutMePlus is an open-source web application that combines a beautiful personal
 ```
 ├── assets/
 │   └── figure-1-logical-diagram.png   # System architecture diagram
-├── node_modules/
 ├── public/
 │   ├── about.html                     # Detailed introduction page
 │   ├── index.html                     # Personal introduction page
