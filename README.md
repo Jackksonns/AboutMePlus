@@ -4,14 +4,14 @@
 
 **GitHub:** [@Jackksonns](https://github.com/Jackksonns)
 
-## 🌟 Project Overview
+## Project Overview
 AboutMePlus is an open-source web application that combines a beautiful personal homepage, a detailed self-introduction, and a real-time online quiz game. It is designed for students, developers, and anyone who wants to showcase themselves and have fun with friends through knowledge challenges.
 
 - **Personal Introduction**: Brief and detailed self-introduction pages.
 - **Real-time Quiz Game**: Challenge online users in a fast-paced quiz battle.
 - **Modern UI**: Responsive, mobile-friendly, and visually appealing.
 
-## 🚀 Features
+## Features
 - **Home Page**: Showcases education background and major courses.
 - **About Me Page**: Deeper insight into academic interests, achievements, and personal growth.
 - **Quiz Game**: Multiplayer, real-time quiz with live score updates and challenge system.
@@ -19,7 +19,7 @@ AboutMePlus is an open-source web application that combines a beautiful personal
 - **Express + EJS**: Server-side rendering and routing.
 - **Responsive Design**: Works on both desktop and mobile devices.
 
-## 🏗️ Project Structure
+## Project Structure
 ```
 ├── assets/
 │   └── figure-1-logical-diagram.png   # System architecture diagram
@@ -37,13 +37,13 @@ AboutMePlus is an open-source web application that combines a beautiful personal
 └── ProjectReport.md                   # Detailed report of this project
 ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Backend**: Node.js, Express, Socket.io
 - **Frontend**: HTML, CSS (Bootstrap), EJS, JavaScript
 - **Templating**: EJS
 - **Real-time**: Socket.io
 
-## ⚡ Quick Start
+## Quick Start
 1. **Clone the repository**
    ```bash
    git clone https://github.com/Jackksonns/AboutMePlus.git
@@ -70,15 +70,15 @@ AboutMePlus is an open-source web application that combines a beautiful personal
 4. **Open your browser**
    Visit [http://localhost:8080](http://localhost:8080)
 
-## 📄 Main Pages & Usage
+## Main Pages & Usage
 - **/index.html**: Brief personal introduction
 - **/about.html**: Detailed self-introduction
 - **/welcomeQuiz**: Real-time quiz game (enter your name, challenge online users, answer questions, see live scores)
 
-## 🖼️ System Architecture
+## System Architecture
 See `assets/figure-1-logical-diagram.png` for a visual overview of the application's logic and data flow.
 
-## 🤝 Contributing
+## Contributing
 Contributions are welcome! Feel free to fork the repo, submit issues, or open pull requests.
 
 1. Fork this repository
@@ -87,12 +87,10 @@ Contributions are welcome! Feel free to fork the repo, submit issues, or open pu
 4. Push to the branch (`git push origin feature/YourFeature`)
 5. Open a Pull Request
 
-## 📜 License
-This project is licensed under the Apache License 2.0.
-
-## 🙏 Acknowledgements
+## Acknowledgements
 - Inspired by modern web design and real-time multiplayer quiz games.
 - Thanks to all contributors and users!
 
 ---
 For any questions or suggestions, feel free to open an issue or contact the maintainer. 
+
