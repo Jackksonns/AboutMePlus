@@ -1,0 +1,66 @@
+{
+  "name": "ZHOU HONGYI",
+  "pageTitles": {
+    "index": "ZHOU HONGYI",
+    "about": "About me",
+    "quiz": "Quiz Application"
+  },
+  "photo": {
+    "src": "photo.png",
+    "alt": "my photo"
+  },
+  "education": {
+    "intro": "Pursue a dual bachelor's degree in Science:",
+    "items": [
+      {
+        "program": "Business management and Information System(BMIS),",
+        "school": "University of Aberdeen"
+      },
+      {
+        "program": "Imformation management and Information System(IMIS),",
+        "school": "South China Normal University"
+      },
+      {
+        "text": "2023-2027"
+      }
+    ]
+  },
+  "majorCourses": [
+    "Web Application Development",
+    "Principles and Practice of Database Systems",
+    "Marketing",
+    "Object-Oriented Programming",
+    "International Context for Business",
+    "Managing Organisations"
+  ],
+  "overview": [
+    "<strong>The first page</strong>(Introduction page) is <u>a brief introduction</u> of {name}, including Education experience and Major courses.",
+    "<strong>The second page</strong>('About me' page) is <u>a detailed introduction</u> of {name}, consist of professional and private interests.",
+    "<strong>The third page</strong>(Quiz application page) is <u>a Quiz application</u>, which is designed to show the knowledge of Web Application Development."
+  ],
+  "about": {
+    "title": "A Few Words About Me",
+    "sections": [
+      {
+        "icon": "fa-solid fa-gear",
+        "heading": "Academic Interests",
+        "text": "My favorite academic subject is programming. Through this discipline, I am able to continually expand my knowledge of Python algorithms and abstract data types (ADTs). For me, the experience of repeatedly reading excellent code and striving to understand the algorithms behind it is invaluable\u2014a true gift for anyone passionate about computers."
+      },
+      {
+        "icon": "fa-solid fa-trophy",
+        "heading": "Study Attitude and Achievements",
+        "text": "I have always taken my studies seriously, eager to seize every opportunity to broaden my horizons and enhance my module design skills. I believe that only through relentless self-improvement can one achieve the life they dream of. I am committed to working harder and embracing challenges. Additionally, I participated in the school\u2019s English speech contest and won first prize at the institute level, which significantly improved my English proficiency. Given my major, I have delved deeply into data structures (such as binary search and hash tables) and organizational functions. I am particularly fascinated by how data and AI can be leveraged to enhance societal welfare."
+      },
+      {
+        "icon": "fa-solid fa-magnifying-glass",
+        "heading": "Goals and Personal Growth",
+        "text": "Rather than setting lofty and unrealistic dreams, I prefer to establish small, achievable goals that allow me to progress step by step toward my ultimate aspirations. I make it a habit to create a daily to-do list each morning, which might include reading academic books on programming or preparing for economics classes. My primary goal is to master programming algorithms so that I can compete in the global ACM contest and win a prize. At the same time, personal growth is a key focus for me\u2014I strive to step out of my comfort zone and become more outgoing and sociable when interacting with others."
+      }
+    ]
+  },
+  "quiz": {
+    "title": "{name}'s Quiz Game",
+    "welcome": "Welcome to quiz! Give your name:",
+    "placeholder": "Enter your name~"
+  }
+}

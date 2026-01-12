@@ -26,9 +26,9 @@
         }
     </style>
 </head>
-<body>
+<body data-page="index">
     <header>
-        <h1>ZHOU HONGYI</h1>
+        <h1 id="profileName">ZHOU HONGYI</h1>
     </header>
     <br><br><br><br>
     <h2>Personal Introduction</h2>
@@ -38,7 +38,7 @@
         <div class="row g-3"> 
             <div class="col-md-4">
                 <div class="custom-card">
-                    <img class="myphoto" src="photo.png" alt="my photo">
+                    <img class="myphoto" id="profilePhoto" src="photo.png" alt="my photo">
                 </div>
             </div>
 
@@ -47,8 +47,8 @@
                     
                     <h3><i class="fas fa-graduation-cap"></i> Education</h3>
                     <div id="education">
-                        <p style="font-style: italic;">Pursue a dual bachelor's degree in Science: </p>
-                        <ol>
+                        <p id="educationIntro" style="font-style: italic;">Pursue a dual bachelor's degree in Science: </p>
+                        <ol id="educationList">
                             <li>Business management and Information System(BMIS), <br>
                                 <div class="school">University of Aberdeen</div>
                             </li>
@@ -66,7 +66,7 @@
                 <div class="custom-card">
                     
                     <h3><i class="fa-solid fa-book"></i> Major courses</h3>
-                    <ol>
+                    <ol id="courseList">
                         <li>Web Application Development</li>
                         <li>Principles and Practice of Database Systems</li>
                         <li>Marketing</li>
@@ -95,5 +95,6 @@
     <button id="button2" class="page_button" onclick="location.href='about.html'">About me</button>
     <button id="button3" class="page_button" onclick="location.href='welcomeQuiz'">Quiz application</button>
     </div>
+    <script src="/profile.js"></script>
 </body>
 </html>

@@ -1,10 +1,17 @@
 {
   "dependencies": {
     "ejs": "^3.1.10",
-    "express": "^5.1.0",
+    "express": "^5.2.1",
     "socket.io": "^4.8.1"
   },
-   "scripts": {
+  "scripts": {
     "start": "node quiz.js"
-  }
+  },
+  "name": "aboutmeplus",
+  "version": "1.0.0",
+  "description": "> A modern, interactive personal profile and real-time quiz web application",
+  "main": "quiz.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="/project.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body data-page="quiz">
     <header>
-        <h1>ZHOU HONGYI's Quiz Game</h1>
+        <h1 id="quizTitle">ZHOU HONGYI's Quiz Game</h1>
     </header>
     <br><br><br><br>
     <div id="page1">
-    <h2>Welcome to quiz! Give your name:</h2>
+    <h2 id="quizWelcome">Welcome to quiz! Give your name:</h2>
     <br><br>
     <input type="text" id="playerName" placeholder="Enter your name~" style="height:3rem; width:auto;">
     <br>
@@ -61,6 +61,7 @@
     <button id="button2" class="page_button" onclick="location.href='about.html'">About me</button>
     <button id="button3" class="page_button" onclick="location.href='welcomeQuiz'">Quiz application</button>
     </div>
+    <script src="/profile.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
